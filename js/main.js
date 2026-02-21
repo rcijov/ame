@@ -51,6 +51,10 @@
 		var ua = navigator.userAgent.toLowerCase();
 		var isAndroid = ua.indexOf("android") > -1;
 		var isOperaMobile = isAndroid && navigator.userAgent.indexOf("Opera")> -1;
+		var isSafari = /^((?!chrome|android|crios|fxios|edgios|opr).)*safari/i.test(navigator.userAgent);
+		if(isSafari) {
+			$('html').addClass('ua-safari');
+		}
 		safeMod = safeMod || !Modernizr.csstransforms || !Modernizr.csstransforms3d || $(window).width() < 960 || $.browser.msie || isIE11 || isAndroid || isOperaMobile;
 		if(safeMod) {
 			
@@ -499,15 +503,15 @@
 				
 				$('html').addClass('p-overlay-on');
 	
-				// responsive videos
-				$(".portfolio-single").fitVids();
-				
-				if(Modernizr.csstransforms && Modernizr.csstransforms3d) { // modern browser
-				p.removeClass('animated '+ outAnimation + " " + inAnimation ).addClass('animated '+ inAnimation).show();
-				} else { //old browser
-					p.fadeIn();	
-				}
-				p.addClass('active');
+					// responsive videos
+					$(".portfolio-single").fitVids();
+					
+					if(Modernizr.csstransforms && Modernizr.csstransforms3d) { // modern browser
+						p.removeClass('animated '+ outAnimation + " " + inAnimation ).addClass('animated '+ inAnimation).show();
+					} else { //old browser
+						p.fadeIn();	
+					}
+					p.addClass('active');
 				
 			});
 		});
@@ -530,15 +534,15 @@
 			}
 		}
 		
-		pActive.removeClass('active');
-		
-		if(Modernizr.csstransforms && Modernizr.csstransforms3d) { // modern browser
-			pActive.removeClass('animated '+ inAnimation).addClass('animated '+ outAnimation);
-			setTimeout(function() { pActive.hide().removeClass(outAnimation).empty(); } ,1010)
-		} else { //old browser
-			pActive.fadeOut().empty();	
+			pActive.removeClass('active');
+			
+			if(Modernizr.csstransforms && Modernizr.csstransforms3d) { // modern browser
+				pActive.removeClass('animated '+ inAnimation).addClass('animated '+ outAnimation);
+				setTimeout(function() { pActive.hide().removeClass(outAnimation).empty(); } ,1010)
+			} else { //old browser
+				pActive.fadeOut().empty();	
+			}
 		}
-	}
 	
 	function giveDetailUrl() {
 	
@@ -579,7 +583,34 @@
 			$middle = $container.find( 'div.rm-middle' ),
 			$right = $container.find( 'div.rm-right' ),
 			$open = $cover.find('a.rm-button-open'),
-			$close = $right.find('.rm-close');
+			$close = $right.find('.rm-close'),
+			openAnimTimer = null,
+			closeAnimTimer = null,
+			scheduleFrame = window.requestAnimationFrame || function(cb) { setTimeout(cb,16); },
+			forceSafariPortfolioPaint = function() {
+				if(!$('html').hasClass('ua-safari')) {
+					return;
+				}
+				var content = $middle.find('#portfolio .content')[0];
+				var title = $middle.find('#portfolio .content h2')[0];
+				var items = $middle.find('.portfolio-items')[0];
+				if(content) { content.offsetHeight; }
+				if(title) { title.offsetHeight; }
+				if(items) { items.offsetHeight; }
+				if(items) {
+					var $items = $(items);
+					if($items.data('isotope')) {
+						setMasonry();
+						$items.isotope();
+					}
+				}
+				scheduleFrame(function() {
+					if(content) { content.offsetHeight; }
+					if(title) { title.offsetHeight; }
+					if(items) { items.offsetHeight; }
+					$(window).trigger('resize');
+				});
+			};
 	
 			init = function() {
 	
@@ -606,16 +637,26 @@
 				
 			},
 			openMenu = function() {
-	
-				$container.removeClass('rm-closed');
+
+				clearTimeout(openAnimTimer);
+				clearTimeout(closeAnimTimer);
+				$container.removeClass('rm-closed rm-closing rm-ready').addClass('rm-opening');
 				setTimeout(function() { $container.addClass( 'rm-open' ); },10);
-	
+				openAnimTimer = setTimeout(function() {
+					$container.removeClass('rm-opening').addClass('rm-ready');
+					forceSafariPortfolioPaint();
+				},900);
+
 			},
 			closeMenu = function() {
-	
-				$container.removeClass( 'rm-open rm-nodelay rm-in' );
-				setTimeout(function() { $container.addClass( 'rm-closed' ) },850);
-	
+
+				clearTimeout(openAnimTimer);
+				clearTimeout(closeAnimTimer);
+				$container.addClass('rm-closing').removeClass( 'rm-open rm-nodelay rm-in rm-opening rm-ready' );
+				closeAnimTimer = setTimeout(function() {
+					$container.removeClass('rm-closing').addClass( 'rm-closed' );
+				},900);
+
 			};
 			
 		return { init : init };

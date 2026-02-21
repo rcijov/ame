@@ -249,6 +249,74 @@ html:not(.safe-mod) .rm-container .rm-back {
 	box-shadow: 0 6px 4px -2px rgba(0,0,0,0.2);
 }
 
+/* Prevent portfolio thumbnails from flashing before the book is fully open */
+.rm-wrapper .rm-middle .portfolio-items {
+	opacity: 0;
+	visibility: hidden;
+	-webkit-transition: opacity 0.12s ease;
+	-moz-transition: opacity 0.12s ease;
+	-o-transition: opacity 0.12s ease;
+	transition: opacity 0.12s ease;
+}
+.rm-container.rm-open .rm-wrapper .rm-middle .portfolio-items {
+	opacity: 1;
+	visibility: visible;
+	-webkit-transition-delay: 0.18s;
+	-moz-transition-delay: 0.18s;
+	-o-transition-delay: 0.18s;
+	transition-delay: 0.18s;
+}
+
+/* Match the same behavior for the portfolio title */
+.rm-wrapper .rm-middle #portfolio .content h2 {
+	display: none;
+	opacity: 0;
+	visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	will-change: opacity;
+}
+.rm-wrapper .rm-middle #portfolio .content h2 span {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+	transform: translate3d(0,0,0);
+}
+.rm-container.rm-ready .rm-wrapper .rm-middle #portfolio .content h2 {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+.safe-mod .rm-wrapper .rm-middle .portfolio-items {
+	opacity: 1;
+	visibility: visible;
+}
+.safe-mod .rm-wrapper .rm-middle #portfolio .content h2 {
+	display: block;
+	opacity: 1;
+	visibility: visible;
+}
+
+/* Safari stability fallback for repeated open/close cycles */
+html.ua-safari .rm-container.rm-open .rm-wrapper .rm-middle #portfolio .content {
+	display: block !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+	pointer-events: auto !important;
+}
+html.ua-safari .rm-container.rm-open .rm-wrapper .rm-middle .portfolio-items {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+html.ua-safari .rm-container.rm-open .rm-wrapper .rm-middle #portfolio .content h2 {
+	display: block !important;
+	opacity: 1 !important;
+	visibility: visible !important;
+}
 
 /* firefox weird z-index fix */
 .rm-container.rm-closed .rm-wrapper > div.rm-right > div.rm-front { visibility:hidden; }
