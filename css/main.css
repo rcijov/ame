@@ -126,7 +126,7 @@ body, input, textarea, select, button, input[type="button"], input[type="reset"]
 .history-unit .work-desc h5:before { content: "→ "; display:inline-block; margin-right:6px; }
 .history-unit .work-desc p { margin-top: 0.6em; }
 .history-unit h4, .skill-unit h4 { margin-bottom:2px; font-weight:400; }
-.history-unit h4.work-time { position:relative; z-index:100; float:left; margin-top: 0; min-width: 80px; text-align: center; font-size: 2.2em; font-family: 'Tulpen One', cursive; padding: 4px 10px; border: 1px solid #ddd; border-radius: 4px; }
+.history-unit h4.work-time { position:relative; z-index:100; float:left; margin-top: 0; min-width: 80px; text-align: center; font-size: 2em; font-family: 'Tulpen One', cursive; padding: 4px 10px; border: 1px solid #ddd; border-radius: 4px; }
 .history-unit:before { content: ""; position:absolute; z-index:90; top: 66px; left:50px; bottom: 4px; border-left: 1px dashed #ccc; }
 .history-unit:last-child:before { display: none; }
 
@@ -140,7 +140,7 @@ body, input, textarea, select, button, input[type="button"], input[type="reset"]
 .bar .progress { background: #333; }
 
 /* About text */
-h4.about-text { text-align: center; font-size: 1.3em; line-height: 160%; padding: .3em 0; }
+h4.about-text { text-align: left; font-size: 1.3em; line-height: 160%; padding: .3em 0; }
 .label { display: inline-block; padding: 0 .4em; border-radius: 2px; }
 
 /* Testimonials */
@@ -438,6 +438,9 @@ body .cover h2 { display: block; width: 100%; margin: 0 auto; padding: 2.0em 0 0
 body .cover h1 { display: block; width: 100%; max-width: 92%; margin: 0 auto; padding: .45em 0 0 0; text-align: center; color: #fff !important; line-height: .92; letter-spacing: .2px; font-size: 84px; font-family: 'Cormorant Garamond', "Didot", serif; font-weight: 500; text-transform: none; text-shadow: 0 14px 28px rgba(0, 0, 0, .65), 0 3px 10px rgba(0, 0, 0, .45) !important; }
 body .cover h3 { position: absolute; margin: 0; padding: 0; color: #fff !important; font-family: 'Montserrat', sans-serif; text-shadow: 0 2px 8px rgba(0, 0, 0, .65) !important; }
 body .cover h3 span { display: block; color: #fff !important; }
+body .cover h3 ul { list-style: none; margin: .3em 0 0 0; padding: 0; }
+body .cover h3 ul li { display: block; font-size: 12px; margin: 0 0 .22em 0; }
+body .cover h3 ul li:last-child { margin-bottom: 0; }
 body .cover h3:nth-of-type(1) { top: 46%; left: 5%; max-width: 30%; font-size: 16px; font-weight: 700; line-height: 1.03; letter-spacing: .4px; text-transform: uppercase; }
 body .cover h3:nth-of-type(1) span { margin-bottom: .18em; font-size: 40px; font-family: 'Cormorant Garamond', "Didot", serif; font-weight: 500; line-height: .95; letter-spacing: .2px; text-transform: none; }
 body .cover h3:nth-of-type(2) { top: auto; bottom: 21%; right: 5%; left: auto; max-width: 32%; text-align: right; font-size: 16px; font-weight: 700; line-height: 1.03; letter-spacing: .4px; text-transform: uppercase; }
@@ -445,7 +448,7 @@ body .cover h3:nth-of-type(2) span { margin-bottom: .18em; font-size: 40px; font
 
 
 /* OPEN BUTTON */
-body .cover a.rm-button-open { position: absolute; top: 50%; margin-top: -20px; right: -10px; left: auto; bottom: auto; transform: none; z-index: 8; }
+body .cover a.rm-button-open { position: absolute; top: 44%; margin-top: -20px; right: -10px; left: auto; bottom: auto; transform: none; z-index: 8; }
 body .cover a.rm-button-open:hover { right: 0; }
 .ribbon { text-align: center;
    background: #d64b4b;
@@ -604,7 +607,7 @@ body .cover .latest-from-blog {
 .w420 .testo img { max-width: 60px; }
 .w420 .testo .text { margin-left: 80px; }
 .w420 .history-unit:before { left: 46px; }
-.w420 .history-unit h4.work-time { min-width: 67px; font-size: 2em; }
+.w420 .history-unit h4.work-time { min-width: 67px; font-size: 1.9em; }
 .w420 .history-unit .work-desc { margin-left: 104px; }
 /* portfolio */
 .w420 #filters li { margin: 0 .5em .2em .5em; }
