@@ -246,6 +246,38 @@ box-shadow: 0 0 10px #555;
 .portfolio-items .url .mask:before { content: "\f0c1"; }
 .media-box .mask a { position:absolute; top: 0; left: 0; width: 100%; height: 100%; background:#fff; opacity:0; filter: alpha(opacity = 0); }
 
+/* Flatten the middle page's 3D context: it never rotates, and letting its
+   transformed isotope tiles join the book's preserve-3d scene makes them
+   z-fight (flicker) with the cover during the open/close animation. */
+.rm-wrapper > div.rm-middle {
+  -webkit-transform-style: flat;
+  -moz-transform-style: flat;
+  transform-style: flat;
+}
+
+/* Safari still repaints the tiles erratically while the cover animates, even
+   with a flattened middle page - keep the thumbnails hidden during the
+   open/close animation and fade them in once the book is fully open. */
+#portfolio .media-box,
+#portfolio #filters,
+#portfolio .hentry h4,
+#portfolio .hentry p { -webkit-transition: opacity .3s ease-out; transition: opacity .3s ease-out; }
+html.ua-safari .rm-container.rm-closed #portfolio .media-box,
+html.ua-safari .rm-container.rm-closing #portfolio .media-box,
+html.ua-safari .rm-container.rm-opening #portfolio .media-box,
+html.ua-safari .rm-container.rm-closed #portfolio #filters,
+html.ua-safari .rm-container.rm-closing #portfolio #filters,
+html.ua-safari .rm-container.rm-opening #portfolio #filters,
+html.ua-safari .rm-container.rm-closed #portfolio .hentry h4,
+html.ua-safari .rm-container.rm-closing #portfolio .hentry h4,
+html.ua-safari .rm-container.rm-opening #portfolio .hentry h4,
+html.ua-safari .rm-container.rm-closed #portfolio .hentry p,
+html.ua-safari .rm-container.rm-closing #portfolio .hentry p,
+html.ua-safari .rm-container.rm-opening #portfolio .hentry p {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /**** Isotope Filtering ****/
 .isotope-item { z-index: 2; }
 .isotope-hidden.isotope-item { pointer-events: none; z-index: 1; }
